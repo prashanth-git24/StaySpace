@@ -17,7 +17,7 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hotel_id",nullable = false)
     private Hotel hotel;
 
@@ -47,5 +47,6 @@ public class Room {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
 
 }
