@@ -1,6 +1,7 @@
 package com.prashanth.project.staySpace.service;
 
 import com.prashanth.project.staySpace.dto.HotelDto;
+import com.prashanth.project.staySpace.dto.HotelInfoDto;
 import com.prashanth.project.staySpace.entity.Hotel;
 
 public interface HotelService {
@@ -10,4 +11,5 @@ public interface HotelService {
     void deleteHotel(Long id);
     void updateHotelStatus(Long id, boolean active);
 
+    HotelInfoDto getHotelInfo(Long hotelId);
 }
