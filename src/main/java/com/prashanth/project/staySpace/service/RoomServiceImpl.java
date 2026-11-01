@@ -32,10 +32,11 @@ public class RoomServiceImpl implements RoomService{
                 .orElseThrow(()->new ResourceNotFoudException("Hotel not found with ID: " + hotelId));
         Room room=modelMapper.map(roomDto,Room.class);
         room.setHotel(hotel);
+        room=roomRepository.save(room);
         if(hotel.getActive()){
             inventoryService.initializeRoomForAYear(room);
         }
-        room=roomRepository.save(room);
+
         log.info("Room created successfully with id: {}", room.getId());
         return modelMapper.map(room,RoomDto.class);
     }

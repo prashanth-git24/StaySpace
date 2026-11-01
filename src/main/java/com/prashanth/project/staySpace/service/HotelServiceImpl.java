@@ -5,6 +5,7 @@ import com.prashanth.project.staySpace.entity.Hotel;
 import com.prashanth.project.staySpace.entity.Room;
 import com.prashanth.project.staySpace.exception.ResourceNotFoudException;
 import com.prashanth.project.staySpace.repository.HotelRepository;
+import com.prashanth.project.staySpace.repository.RoomRepository;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ public class HotelServiceImpl implements HotelService {
 
     private final InventoryService inventoryService;
     private final HotelRepository hotelRepository;
+    private final RoomRepository roomRepository;
     private final ModelMapper modelMapper;
 
     @Override
@@ -58,6 +60,7 @@ public class HotelServiceImpl implements HotelService {
                 .orElseThrow(()->new ResourceNotFoudException("Hotel not found with ID: " + id));
         for(Room room:hotel.getRooms()){
             inventoryService.deleteFutureInventories(room);
+            roomRepository.deleteById(room.getId());
         }
         hotelRepository.delete(hotel);
         log.info("Hotel deleted successfully with id: {}", hotel.getId());
